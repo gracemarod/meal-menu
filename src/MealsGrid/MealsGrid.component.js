@@ -1,6 +1,8 @@
 import React from 'react';
+import MealBox from '../MealBox/MealBox.component';
+import './MealsGrid.css';
 
-class MealBox extends React.Component{
+class MealsGrid extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -32,23 +34,23 @@ class MealBox extends React.Component{
 
     render() {
         const {error, isLoaded, items} =  this.state;
-        console.log('Items:', items)
+        console.log('Items:', items);
         if (error){
             return <div>Error: {error.message}</div>
         }else if(!isLoaded){
             return <div>Loading...</div>
         }else{
-            return (
-                <ul>
-                    {items.map((item,i) => (
-                        <li key={i}>
-                            {item.strMeal}
-                        </li>
-                    ))}
-                </ul>
-           
-            );
+            return <div className='MealsContainer'>
+                {items.map((item,inx) => {
+                    return <MealBox
+                        image = {item.strMealThumb}
+                        name = {item.strMeal}
+                        key = {item.idMeal}
+                    />
+                })}
+            </div>
+         
         }
     }
 }
-export default MealBox;
+export default MealsGrid;

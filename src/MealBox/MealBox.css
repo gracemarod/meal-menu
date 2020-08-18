@@ -1,0 +1,13 @@
+.MealContainer{
+    flex: 1;
+    margin: 20px;
+    width:30%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.MealContainer img{
+    height:200px;
+    
+}
