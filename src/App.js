@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
 import MealsGrid from './MealsGrid/MealsGrid.component';
+import Searches from './Searches/Searches.component';
+
 
 function App() {
   return (
-    <div className="Meal Menu">
-      <MealsGrid/>
+    <div>
+        <Searches/>
+        <MealsGrid/>
     </div>
   );
 }
