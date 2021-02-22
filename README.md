@@ -1,3 +1,15 @@
+## Meal Menu
+A small little web app to practice ReactJs. Fetches meal data from [https://www.themealdb.com/]("https://www.themealdb.com/") and displays according to input. Input can be based on meal name, meal category, meal locality or ingredients.
+
+### Components
+#### Searches
+For now, the data is being fetch in the Searches Component. 
+#### Search
+Child component for Searches to display all the possible types of input.
+#### Mealbox
+Child component for Searches to map the queried data and display it.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

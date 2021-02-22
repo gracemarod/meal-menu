@@ -1,0 +1,17 @@
+.SearchesContainer{
+    display: flex;
+    flex-direction: row;
+    margin: 20px 30px;
+    justify-content: space-between;
+}
+.SearchIconContainer{
+    margin-top:10px ;
+}
+.SearchIconContainer img{
+    height:20px;
+}
+.MealsContainer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
