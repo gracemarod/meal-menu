@@ -2,8 +2,8 @@
     flex: 1;
     margin: 20px;
     width:30%;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: space-evenly;
     text-align: center;
 }
 

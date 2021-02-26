@@ -5,7 +5,7 @@ import Searches from './Searches/Searches.component';
 
 function App() {
   return (
-    <div>
+    <div className='Home'>
         <Searches/>
     </div>
   );

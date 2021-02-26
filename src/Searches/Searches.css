@@ -1,12 +1,26 @@
+.MealMenuContainer{
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
+}
+
 .SearchesContainer{
     display: flex;
     flex-direction: row;
-    margin: 20px 30px;
     justify-content: space-between;
+
 }
 .SearchIconContainer{
-    margin-top:10px ;
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0;
 }
+
+.SearchIconContainer .button{
+    display: inline-flex;
+    width: auto;
+}
+
 .SearchIconContainer img{
     height:20px;
 }

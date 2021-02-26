@@ -4,11 +4,23 @@ A small little web app to practice ReactJs. Fetches meal data from [https://www.
 ### Components
 #### Searches
 For now, the data is being fetch in the Searches Component. 
+Parent Component, sends an API request with each new input after clicking the search button. The options to search for new meal menus lists are by Name, Category (Seafood, Vegeterian...), Area (Country) or Ingredient.
+
 #### Search
 Child component for Searches to display all the possible types of input.
-#### Mealbox
-Child component for Searches to map the queried data and display it.
 
+#### Mealbox
+Child component for Searches to map the queried data and display each meal's title and photo.
+
+#### Notes
+- Feb 25, 2020: Was able to finally display a new queried list of menus with ComponentDidUpdate. 
+
+#### To Do:
+- Fix CSS for Searches
+- Be able to select a menu and load that menu's description and recipe
+- Add a loading icon
+- Add side menu that loads the lists of all possible lists 
+- Make a Trello for this
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
