@@ -15,13 +15,6 @@ Child component for Searches to map the queried data and display each meal's tit
 #### Notes
 - Feb 25, 2020: Was able to finally display a new queried list of menus with ComponentDidUpdate. 
 
-#### To Do:
-- Fix CSS for Searches
-- Be able to select a menu and load that menu's description and recipe
-- Add a loading icon
-- Add side menu that loads the lists of all possible lists 
-- Make a Trello for this
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

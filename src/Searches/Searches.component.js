@@ -3,6 +3,7 @@ import Search from '../Search/Search.component';
 import './Searches.css'
 import searchIcon from '../assets/images/search.png';
 import MealBox from '../MealBox/MealBox.component';
+import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch} from 'react-router-dom';
 
 class Searches extends React.Component{          
 
@@ -13,6 +14,7 @@ class Searches extends React.Component{
             link:'',
             enterClicked: false, 
             isLoaded:null,
+            selectedMealId: null,
             menuItems:[]
         }
         this.handleChange = this.handleChange.bind(this);
@@ -48,6 +50,11 @@ class Searches extends React.Component{
         let newLink = this.state.input;
         this.setState({enterClicked:true, link:newLink});
         event.preventDefault();
+    }
+
+    //Set up the new selected meal id
+    mealSelectedHandler = (id) => {
+        this.setState({selectedMealId:id});
     }
 
     //if there's a new input, fetch the data with the new link
@@ -93,6 +100,7 @@ class Searches extends React.Component{
                         image = {meal.strMealThumb}
                         name = {meal.strMeal}
                         key = {meal.idMeal}
+                        clicked={() => this.mealSelectedHandler(meal.idMeal)}
                     />
                 })}
             </div>
