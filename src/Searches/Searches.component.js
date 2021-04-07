@@ -3,13 +3,15 @@ import Search from '../Search/Search.component';
 import './Searches.css'
 import searchIcon from '../assets/images/search.png';
 import MealBox from '../MealBox/MealBox.component';
-import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch} from 'react-router-dom';
+import MealBoxContainer from '../MealsGrid/MealsGrid.component';
+import MealsGrid from '../MealsGrid/MealsGrid.component';
 
 class Searches extends React.Component{          
 
     constructor(props){
         super(props);
         this.state = {
+            search_input:'',
             input:'',
             link:'',
             enterClicked: false, 
@@ -44,6 +46,7 @@ class Searches extends React.Component{
     handleChange = (event, link) => {
         let newInput = link + event.target.value;
         this.setState({input:newInput});
+        this.setState({search_input:event.target.value});
     }
     //set new link state once the user presses enter 
     handleClick = (event) => {
@@ -127,7 +130,7 @@ class Searches extends React.Component{
                         </div>
                     </div>
                     {MealsList}
-
+                  <MealsGrid searchInput={this.state.search_input}/>
             </div>
     }
 }

@@ -10,7 +10,7 @@ class MealsGrid extends React.Component{
 
     componentDidUpdate(){
         // if(!this.state.loadedMenu || (this.state.loadedMenu && this.state.loadedMenu.link !== this.props.link)){
-            console.log( "Prev", this.props.link );
+            console.log( "Prev", this.props );
             // fetch()
             // .then(res => res.json())
             // .then(

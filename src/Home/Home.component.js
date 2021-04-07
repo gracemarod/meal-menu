@@ -1,27 +1,28 @@
 import React, {Component} from 'react';
+import { Route, Link, NavLink, Switch} from 'react-router-dom';
+import Searches from '../Searches/Searches.component';
 
-import { Route, NavLink, Switch} from 'react-router-dom';
+class Home extends Component{
+    render(){
+        return (
+        
+            <div>
+                <header>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to='/'>Home</Link>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <Route path='/' exact component={Searches}/>
+            </div>
+        )
+    }
 
-export default function NestingExample() {
-
-    return (
-        <div>
-            <header>
-                <nav>
-                    <ul>
-                        <li>
-                            <NavLink to='/Home' exact activeClassName="my-active">Home</NavLink>
-                        </li>
-                        <li>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
-            {
-                <Switch>
-
-                </Switch>
-            }
-        </div>
-    )
 }
+
+export default Home;

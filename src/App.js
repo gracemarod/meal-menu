@@ -1,13 +1,17 @@
 import React from 'react';
 import './App.css';
-import Searches from './Searches/Searches.component';
+import {BrowserRouter} from 'react-router-dom';
+import Home from './Home/Home.component';
 
 
 function App() {
   return (
-    <div className='Home'>
-        <Searches/>
-    </div>
+    <BrowserRouter>
+      <div className='Home'>
+        <Home/>
+      </div>
+    </BrowserRouter>
+
   );
 }
 
