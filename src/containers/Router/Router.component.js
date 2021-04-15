@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Route, NavLink, Switch} from 'react-router-dom';
-import Searches from '../Searches/Searches.component';
+import Searches from '../Searches/Searches_old.component';
+import Home from '../Home/Home.component'; 
 import './Router.css';
 class Router extends Component{
     render(){
@@ -18,7 +19,7 @@ class Router extends Component{
                     </nav>
                 </header>
                 <Switch>
-                    <Route path='/' exact component={Searches}/>
+                    <Route path='/' exact component={Home}/>
                 </Switch>
             </div>
         )
