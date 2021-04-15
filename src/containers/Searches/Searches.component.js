@@ -7,16 +7,16 @@ import ListItemText  from '@material-ui/core/ListItemText';
 import { useState } from 'react';
 
 const options = [
+  'Category',
   'Ingredients',
   'Name',
-  'Area',
-  'Type',
+  'Area'
 ];
 
 
 export default function SimpleListMenu(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);

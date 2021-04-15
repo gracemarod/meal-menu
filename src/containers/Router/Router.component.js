@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Route, NavLink, Switch} from 'react-router-dom';
-import Searches from '../Searches/Searches_old.component';
 import Home from '../Home/Home.component'; 
 import './Router.css';
 class Router extends Component{
