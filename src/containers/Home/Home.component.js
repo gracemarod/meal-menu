@@ -4,6 +4,9 @@ import searchIcon from '../../assets/images/search.png';
 import MealBox from '../../components/MealBox/MealBox.component';
 import {apiCall} from '../../mealAPI.js';
 import DropdownSearch from '../Searches/Searches.component';
+import {Route, Switch} from 'react-router-dom';
+import Recipe from '../../components/Recipe/Recipe.Component';
+
 
 const  searchOptions = { 'Name':'https://www.themealdb.com/api/json/v1/1/search.php?s=',
                          'Category':'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
@@ -18,11 +21,13 @@ class Home extends React.Component{
             link:'',
             isLoaded:null,
             menuItems:[],
-            input:''
+            input:'',
+            mealId:''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.setOption = this.setOption.bind(this);
+        this.postSelectedHandler = this.postSelectedHandler.bind(this);
     }
 
     async componentDidMount(){
@@ -40,7 +45,6 @@ class Home extends React.Component{
     }
 
     async componentDidUpdate(prevProps, prevState) {    
-        console.log('This link', this.state.link, 'prev:', prevState.link);
         if(this.state.enterClicked && (this.state.link !== prevState.link)){
             try {
                 const myResp = await apiCall(this.state.link);
@@ -74,10 +78,12 @@ class Home extends React.Component{
     }
 
     //Set up the new selected meal id
-    mealSelectedHandler = (id) => {
-        this.setState({selectedMealId:id});
+    postSelectedHandler = (id) => {
+        console.log('Im clicked');
+        console.log("History:", this.props.history);
+        this.props.history.push({pathname:'/' + id});
+        // this.setState({mealId:id});
     }
-
 
     render(){
         //Map the query data from the Api once it has loaded and save it into Meals
@@ -86,19 +92,21 @@ class Home extends React.Component{
         if (this.state.error) MealsList = (<div>Error: {this.state.error.message} </div>);
         else if (this.state.menuItems === null) MealsList = (<div>Sorry, there are no meals with this input.</div>);
         else if(this.state.isLoaded === true) {
-            MealsList = (
+            MealsList = 
             <div className='MealsContainer'>
                 {this.state.menuItems.map((meal) => {
-                    return <MealBox
-                        image = {meal.strMealThumb}
-                        name = {meal.strMeal}
-                        key = {meal.idMeal}
-                        clicked={() => this.mealSelectedHandler(meal.idMeal)}
-                    />
-                })}
+                    return (
+                        <MealBox
+                            key = {meal.idMeal}
+                            image = {meal.strMealThumb}
+                            name = {meal.strMeal}
+                            clicked={() => this.postSelectedHandler(meal.idMeal)}
+                        />
+   
+                )})}
             </div>
-            );
-        }
+            
+        };
 
         return <div>
                     <DropdownSearch onClick={(type)=>this.setOption(type)} value={this.option}/>
@@ -109,6 +117,9 @@ class Home extends React.Component{
                         </button>
                     </div>
                     {MealsList}
+                    <Switch>
+                        <Route path='/:id' exact component={Recipe}/>
+                    </Switch>
                </div>
     }
     

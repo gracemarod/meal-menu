@@ -3,9 +3,9 @@ import './MealBox.css';
 
 const MealBox = (props) => {
     return(
-        <div className='MealContainer'>
+        <div className='MealContainer' onClick={props.clicked}>
             <img src={props.image} alt="Meal" />
-            <div>{props.name}</div>   
+            <div>{props.name}</div>
         </div>
     )
 }
