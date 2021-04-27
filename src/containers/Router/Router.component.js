@@ -14,8 +14,6 @@ class Router extends Component{
                             <li>
                                 <NavLink to='/Home' exact>Home</NavLink>
                             </li>
-                            <li>
-                            </li>
                         </ul>
                     </nav>
                 </header>
