@@ -4,9 +4,6 @@ import searchIcon from '../../assets/images/search.png';
 import MealBox from '../../components/MealBox/MealBox.component';
 import {apiCall} from '../../mealAPI.js';
 import DropdownSearch from '../Searches/Searches.component';
-import {Route, Switch} from 'react-router-dom';
-import Recipe from '../../components/Recipe/Recipe.Component';
-
 
 const  searchOptions = { 'Name':'https://www.themealdb.com/api/json/v1/1/search.php?s=',
                          'Category':'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
@@ -62,6 +59,10 @@ class Home extends React.Component{
         
      }
 
+    componentWillUnmount () {
+
+    }
+
     setOption = (type) => {
         this.setState({option:type});
     }
@@ -79,8 +80,6 @@ class Home extends React.Component{
 
     //Set up the new selected meal id
     postSelectedHandler = (id) => {
-        console.log('Im clicked');
-        console.log("History:", this.props.history);
         this.props.history.push({pathname:'/' + id});
         // this.setState({mealId:id});
     }
@@ -116,10 +115,7 @@ class Home extends React.Component{
                             <img src={searchIcon} alt='search logo'/> 
                         </button>
                     </div>
-                    {MealsList}
-                    <Switch>
-                        <Route path='/:id' exact component={Recipe}/>
-                    </Switch>
+                    {MealsList}                
                </div>
     }
     

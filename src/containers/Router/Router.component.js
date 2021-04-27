@@ -12,14 +12,17 @@ class Router extends Component{
                     <nav>
                         <ul>
                             <li>
-                                <NavLink to='/' exact>Home</NavLink>
+                                <NavLink to='/Home' exact>Home</NavLink>
                             </li>
                             <li>
                             </li>
                         </ul>
                     </nav>
                 </header>
-                <Route path='/' exact component={Home}/>
+                <Switch>
+                    <Route path='/Home' exact component={Home}/>
+                    <Route path='/:id' exact component={Recipe}/>
+                </Switch>
               
             </div>
         )
