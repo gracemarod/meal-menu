@@ -13,8 +13,8 @@ const options = [
   'Area'
 ];
 
-
 export default function SimpleListMenu(props) {
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -22,7 +22,7 @@ export default function SimpleListMenu(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (option, event, index) => {
+  const handleMenuItemClick = (option, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
     props.onClick(option);
@@ -31,7 +31,7 @@ export default function SimpleListMenu(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+ 
   return (
     <div>
       <List component="nav" aria-label="Device settings">
@@ -43,6 +43,7 @@ export default function SimpleListMenu(props) {
           onClick={handleClickListItem}
         >
           <ListItemText primary="Search by" secondary={options[selectedIndex]} />
+          { console.log('Searches:', options[selectedIndex], 'Inx', selectedIndex)}
         </ListItem>
       </List>
       <Menu
@@ -52,16 +53,17 @@ export default function SimpleListMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {options.map((option, index) => (
-          <MenuItem
+        {options.map((option, index) => {
+          return (<MenuItem
             key={option}
             selected={index === selectedIndex}
-            onClick={(event) => handleMenuItemClick(option, event, index)}
+            onClick={() => handleMenuItemClick(option, index)}
             value={props.value}
           >
             {option}
           </MenuItem>
-        ))}
+          )})
+        }
       </Menu>
     </div>
   );

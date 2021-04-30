@@ -1,14 +1,19 @@
 import React from 'react';
 import './Home.css';
 import searchIcon from '../../assets/images/search.png';
-import MealBox from '../../components/MealBox/MealBox.component';
 import {apiCall} from '../../mealAPI.js';
 import DropdownSearch from '../Searches/Searches.component';
+import Subsection from '../Subsection/Subsection.container';
+import MealTags from '../../assets/data/MealDBid-tag.json';
 
-const  searchOptions = { 'Name':'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+
+
+const searchOptions = { 'Name':'https://www.themealdb.com/api/json/v1/1/search.php?s=',
                          'Category':'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
                          'Area':'https://www.themealdb.com/api/json/v1/1/filter.php?a=',
                          'Ingredients':'https://www.themealdb.com/api/json/v1/1/filter.php?i='}; 
+
+const categories = ['Breakfast','Starters','Sides','Mains','Desserts','Vegetarian','Miscellaneous']; 
 
 class Home extends React.Component{
     constructor(props){
@@ -17,9 +22,11 @@ class Home extends React.Component{
             option:'Category',
             link:'',
             isLoaded:null,
-            menuItems:[],
-            input:'',
-            mealId:''
+            menuItems:null,
+            input:null,
+            mealId:null,
+            mealCatMap:null,
+            filteredRecipes:null
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -30,10 +37,15 @@ class Home extends React.Component{
     async componentDidMount(){
         try {
             const myResp = await apiCall('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood');
+            let catMap = await this.jsonToDict(MealTags);
+            let filteredRecipes = await this.getFilteredRecipes(myResp.meals,catMap);
             this.setState({
                 isLoaded:true,
-                menuItems:myResp.meals
+                menuItems:myResp.meals,
+                mealCatMap:catMap,
+                filteredRecipes:filteredRecipes
             });
+
             if (myResp === null) this.setState({error:null}); 
             
         } catch(error) {
@@ -60,7 +72,7 @@ class Home extends React.Component{
      }
 
     componentWillUnmount () {
-
+        this.setState({isLoaded:null});
     }
 
     setOption = (type) => {
@@ -84,38 +96,79 @@ class Home extends React.Component{
         // this.setState({mealId:id});
     }
 
+    jsonToDict = (mealtags) => {
+        let result = {};
+        mealtags.forEach((a) => {
+            let temp = a.tags.split(',').sort();
+            let newCategory = '';
+            if (temp.indexOf('Breakfast') !== -1|| temp.indexOf('Brunch') !== -1){
+                newCategory = 'Breakfast';
+            }else if(temp.indexOf('Starter') !== -1 || temp.indexOf('Soup') !== -1){
+                newCategory = 'Starters';
+            }else if(temp.indexOf('Sidedish') !== -1){
+                newCategory = 'Sides';
+            }else if(temp.indexOf('Vegetarian') !== -1 || temp.indexOf('Vegan') !== -1){
+                newCategory = 'Vegetarian';
+            }else if(temp.indexOf('Mainmeal') !== -1){
+                newCategory = 'Mains';
+            }else if(temp.indexOf('Tart') !== -1 || temp.indexOf('Baking') !== -1 || temp.indexOf('Fruity') !==-1 || temp.indexOf('Desert') !== -1 || temp.indexOf('Pudding')!== -1){
+                newCategory = 'Desserts';
+            }else{
+                newCategory = 'Miscellaneous';
+            }
+            result[a.id] = newCategory;
+        });
+        return result;
+    }
+
+    getFilteredRecipes = (menuItems,catMap) => {
+        let filterRecipesByCat = {'Breakfast':[], 'Starters':[], 'Sides':[],'Mains':[],'Desserts':[], 'Vegetarian':[],'Miscellaneous':[]};
+
+        menuItems.forEach((a) => {
+            if(catMap[parseInt(a.idMeal)] !== undefined && filterRecipesByCat[catMap[parseInt(a.idMeal)]] !== undefined){
+                filterRecipesByCat[catMap[parseInt(a.idMeal)]].push(a);
+            }else filterRecipesByCat['Miscellaneous'].push(a);
+        })
+        return filterRecipesByCat;
+    }
+
     render(){
+
+        let Subsections = null;
+        let currCategory = null;
+
         //Map the query data from the Api once it has loaded and save it into Meals
         //Display a there are no meals message when API returns null value
-        let MealsList = null;
-        if (this.state.error) MealsList = (<div>Error: {this.state.error.message} </div>);
-        else if (this.state.menuItems === null) MealsList = (<div>Sorry, there are no meals with this input.</div>);
+        if (this.state.error) Subsections = (<div>Error: {this.state.error.message} </div>);
+        else if (this.state.menuItems === null) Subsections = (<div>Your meal will be with you shortly.</div>);
         else if(this.state.isLoaded === true) {
-            MealsList = 
-            <div className='MealsContainer'>
-                {this.state.menuItems.map((meal) => {
-                    return (
-                        <MealBox
-                            key = {meal.idMeal}
-                            image = {meal.strMealThumb}
-                            name = {meal.strMeal}
-                            clicked={() => this.postSelectedHandler(meal.idMeal)}
-                        />
-   
-                )})}
-            </div>
+            Subsections = <div>
+                            {categories.map((cat,inx) => {
+                                currCategory =  (this.state.filteredRecipes[cat] !== undefined) ? this.state.filteredRecipes[cat]:[];
+                                if (currCategory.length > 0){
+                                    return (
+                                        <Subsection
+                                            key = {inx}
+                                            subtitle = {cat}
+                                            items = {currCategory}
+                                            clicked = {this.postSelectedHandler} 
+                                        />
+                                    )
+                                }
+                            })}
+                        </div>
             
         };
-
+        console.log('Option:', this.state.option);
         return <div>
-                    <DropdownSearch onClick={(type)=>this.setOption(type)} value={this.option}/>
+                    <DropdownSearch onClick={(type)=>this.setOption(type)} value={this.state.option}/>
                     <input type='text' onChange={(event) => this.handleChange(event)}/>
                     <div className='SearchIconContainer'> 
                         <button value='Enter' onClick = {(event) => this.handleClick(event)}>
                             <img src={searchIcon} alt='search logo'/> 
                         </button>
                     </div>
-                    {MealsList}                
+                    {Subsections}
                </div>
     }
     
