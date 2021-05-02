@@ -6,12 +6,6 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText  from '@material-ui/core/ListItemText';
 import { useState } from 'react';
 
-const options = [
-  'Category',
-  'Ingredients',
-  'Name',
-  'Area'
-];
 
 export default function SimpleListMenu(props) {
 
@@ -31,7 +25,7 @@ export default function SimpleListMenu(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
- 
+
   return (
     <div>
       <List component="nav" aria-label="Device settings">
@@ -42,8 +36,7 @@ export default function SimpleListMenu(props) {
           aria-label="search by"
           onClick={handleClickListItem}
         >
-          <ListItemText primary="Search by" secondary={options[selectedIndex]} />
-          { console.log('Searches:', options[selectedIndex], 'Inx', selectedIndex)}
+          <ListItemText primary={props.title} secondary={props.items[selectedIndex]} />
         </ListItem>
       </List>
       <Menu
@@ -53,7 +46,7 @@ export default function SimpleListMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {options.map((option, index) => {
+        {props.items.map((option, index) => {
           return (<MenuItem
             key={option}
             selected={index === selectedIndex}

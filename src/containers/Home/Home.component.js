@@ -2,12 +2,13 @@ import React from 'react';
 import './Home.css';
 import searchIcon from '../../assets/images/search.png';
 import {apiCall} from '../../mealAPI.js';
-import DropdownSearch from '../Searches/Searches.component';
+import DropdownSearch from '../../components/DropdownSelection/DropdownSelection.component';
 import Subsection from '../Subsection/Subsection.container';
 import MealTags from '../../assets/data/MealDBid-tag.json';
+import {withTheme} from '@material-ui/core/styles';
 
-
-
+const options = ['Category','Ingredients','Name','Area'];
+  
 const searchOptions = { 'Name':'https://www.themealdb.com/api/json/v1/1/search.php?s=',
                          'Category':'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
                          'Area':'https://www.themealdb.com/api/json/v1/1/filter.php?a=',
@@ -22,7 +23,7 @@ class Home extends React.Component{
             option:'Category',
             link:'',
             isLoaded:null,
-            menuItems:null,
+            menuItems:[],
             input:null,
             mealId:null,
             mealCatMap:null,
@@ -32,6 +33,7 @@ class Home extends React.Component{
         this.handleClick = this.handleClick.bind(this);
         this.setOption = this.setOption.bind(this);
         this.postSelectedHandler = this.postSelectedHandler.bind(this);
+        this.wrapper = React.createRef();
     }
 
     async componentDidMount(){
@@ -53,14 +55,18 @@ class Home extends React.Component{
         }
     }
 
-    async componentDidUpdate(prevProps, prevState) {    
+    async componentDidUpdate(prevState) {    
         if(this.state.enterClicked && (this.state.link !== prevState.link)){
             try {
                 const myResp = await apiCall(this.state.link);
+                let catMap = await this.jsonToDict(MealTags);
+                let filteredRecipes = await this.getFilteredRecipes(myResp.meals,catMap);
                 this.setState({
                     isLoaded:true,
                     menuItems:myResp.meals,
-                    enterClicked:false
+                    enterClicked:false,
+                    mealCatMap:catMap,
+                    filteredRecipes:filteredRecipes
                 });
                 if (myResp === null) this.setState({error:null}); 
                 
@@ -111,7 +117,7 @@ class Home extends React.Component{
                 newCategory = 'Vegetarian';
             }else if(temp.indexOf('Mainmeal') !== -1){
                 newCategory = 'Mains';
-            }else if(temp.indexOf('Tart') !== -1 || temp.indexOf('Baking') !== -1 || temp.indexOf('Fruity') !==-1 || temp.indexOf('Desert') !== -1 || temp.indexOf('Pudding')!== -1){
+            }else if(temp.indexOf('Tart') !== -1 || temp.indexOf('Fruity') !==-1 || temp.indexOf('Desert') !== -1 || temp.indexOf('Pudding')!== -1){
                 newCategory = 'Desserts';
             }else{
                 newCategory = 'Miscellaneous';
@@ -132,15 +138,22 @@ class Home extends React.Component{
         return filterRecipesByCat;
     }
 
+    getTheme = (props) =>{
+        // console.log('Props', props.theme);
+        return <span>{props.theme.palette.type}</span>;
+    }
+
     render(){
 
-        let Subsections = null;
+        let Subsections = (<div>Your meal will be with you shortly.</div>);
         let currCategory = null;
 
+        let newTheme = withTheme(this.getTheme);
+        // console.log('THEME', newTheme);
         //Map the query data from the Api once it has loaded and save it into Meals
         //Display a there are no meals message when API returns null value
         if (this.state.error) Subsections = (<div>Error: {this.state.error.message} </div>);
-        else if (this.state.menuItems === null) Subsections = (<div>Your meal will be with you shortly.</div>);
+        else if (this.state.menuItems === null) return <div>Sorry, there are no meals with this result.</div>;
         else if(this.state.isLoaded === true) {
             Subsections = <div>
                             {categories.map((cat,inx) => {
@@ -159,9 +172,8 @@ class Home extends React.Component{
                         </div>
             
         };
-        console.log('Option:', this.state.option);
-        return <div>
-                    <DropdownSearch onClick={(type)=>this.setOption(type)} value={this.state.option}/>
+        return (<div ref={this.wrapper}>
+                    <DropdownSearch items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
                     <input type='text' onChange={(event) => this.handleChange(event)}/>
                     <div className='SearchIconContainer'> 
                         <button value='Enter' onClick = {(event) => this.handleClick(event)}>
@@ -169,7 +181,8 @@ class Home extends React.Component{
                         </button>
                     </div>
                     {Subsections}
-               </div>
+                    {/* {newTheme} */}
+               </div>)
     }
     
 }
