@@ -5,7 +5,6 @@ import {apiCall} from '../../mealAPI.js';
 import DropdownSearch from '../../components/DropdownSelection/DropdownSelection.component';
 import Subsection from '../Subsection/Subsection.container';
 import MealTags from '../../assets/data/MealDBid-tag.json';
-import {withTheme} from '@material-ui/core/styles';
 
 const options = ['Category','Ingredients','Name','Area'];
   
@@ -148,7 +147,6 @@ class Home extends React.Component{
         let Subsections = (<div>Your meal will be with you shortly.</div>);
         let currCategory = null;
 
-        let newTheme = withTheme(this.getTheme);
         // console.log('THEME', newTheme);
         //Map the query data from the Api once it has loaded and save it into Meals
         //Display a there are no meals message when API returns null value

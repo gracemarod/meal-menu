@@ -4,10 +4,9 @@ import Home from '../Home/Home.component';
 import './Router.css';
 import Recipe from '../../components/Recipe/Recipe.Component';
 import DropdownSelection from '../../components/DropdownSelection/DropdownSelection.component';
-import { withTheme,ThemeProvider } from '@material-ui/core';
 
 
-const themes = ['Dark','Light'];
+const themes = ['Dark', 'Light'];
 
 const Router = (props) => {
     
@@ -15,12 +14,6 @@ const Router = (props) => {
         props.onClick(type);
     }
     
-    const getTheme = (props) =>{
-        console.log('NEW Theme in router', props.theme.palette.type);
-        return <span>{props.theme.palette.type}</span>;
-    }
-    let Test = withTheme(getTheme);
-    // console.log('test', test);
     return (
         <div className='Router'>
             <header className='header'>
