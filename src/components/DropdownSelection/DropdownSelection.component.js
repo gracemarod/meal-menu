@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText  from '@material-ui/core/ListItemText';
 import { useState } from 'react';
 
+import styled from 'styled-components';
 
 export default function SimpleListMenu(props) {
 
@@ -27,8 +28,8 @@ export default function SimpleListMenu(props) {
   };
 
   return (
-    <div>
-      <List component="nav" aria-label="Device settings">
+    <Dropdown>
+      <List component="nav" aria-label="Dropdown">
         <ListItem
           button
           aria-haspopup="true"
@@ -58,6 +59,10 @@ export default function SimpleListMenu(props) {
           )})
         }
       </Menu>
-    </div>
+    </Dropdown>
   );
 }
+
+const Dropdown = styled.div`
+
+`

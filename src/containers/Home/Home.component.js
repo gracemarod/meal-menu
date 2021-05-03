@@ -173,7 +173,7 @@ class Home extends React.Component{
                             <SearchInput type='text' onChange={(event) => this.handleChange(event)}/>
                             <SearchButton alt='Search' value='Enter' onClick = {(event) => this.handleClick(event)}>
                                 <SearchLabel>Search</SearchLabel>
-                                <SearchIcon src={searchIcon} alt='search logo'/> 
+                                {/* <SearchIcon src={searchIcon} alt='search logo'/>  */}
                             </SearchButton>
                             <DropdownWrapper>
                                 <DropdownSearch items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
@@ -183,9 +183,7 @@ class Home extends React.Component{
                     {Subsections}
                </div>)
     }
-    
 }
-
 
 const SearchContainer = styled.div`
     display:flex;
@@ -206,7 +204,6 @@ const SearchContents = styled.div`
     margin: 10vw 0;
     justify-content:center;
     align-items:center;
-
 `
 
 const DropdownWrapper = styled.div`
