@@ -4,12 +4,6 @@
     margin: 1%;
 }
 
-.SearchesContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-}
 .SearchIconContainer{
     display: flex;
     flex-direction: column;

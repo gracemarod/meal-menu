@@ -1,11 +1,13 @@
 import React from 'react';
 import './Home.css';
 import searchIcon from '../../assets/images/search.png';
+import SearchBackground from '../../assets/images/cutting-board.jpg';
 import {apiCall} from '../../mealAPI.js';
 import DropdownSearch from '../../components/DropdownSelection/DropdownSelection.component';
 import Subsection from '../Subsection/Subsection.container';
 import MealTags from '../../assets/data/MealDBid-tag.json';
 import {withTheme} from 'styled-components';
+import styled from 'styled-components';
 
 const options = ['Category','Ingredients','Name','Area'];
   
@@ -145,7 +147,7 @@ class Home extends React.Component{
 
         //Map the query data from the Api once it has loaded and save it into Meals
         //Display a there are no meals message when API returns null value
-        if (this.state.error) Subsections = (<div>Error: {this.state.error.message} </div>);
+        if (this.state.error) Subsections = (<div>There seems to be an error. </div>);
         else if (this.state.menuItems === null) return <div>Sorry, there are no meals with this result.</div>;
         else if(this.state.isLoaded === true) {
             Subsections = <div>
@@ -166,19 +168,83 @@ class Home extends React.Component{
             
         };
         return (<div ref={this.wrapper}>
-                    <div>
-                        <DropdownSearch items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
-                        <input type='text' onChange={(event) => this.handleChange(event)}/>
-                        <div className='SearchIconContainer'> 
-                            <button value='Enter' onClick = {(event) => this.handleClick(event)}>
-                                <img src={searchIcon} alt='search logo'/> 
-                            </button>
-                        </div>
-                    </div>
+                    <SearchContainer>
+                        <SearchContents>
+                            <SearchInput type='text' onChange={(event) => this.handleChange(event)}/>
+                            <SearchButton alt='Search' value='Enter' onClick = {(event) => this.handleClick(event)}>
+                                <SearchLabel>Search</SearchLabel>
+                                <SearchIcon src={searchIcon} alt='search logo'/> 
+                            </SearchButton>
+                            <DropdownWrapper>
+                                <DropdownSearch items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
+                            </DropdownWrapper>
+                        </SearchContents>
+                    </SearchContainer>
                     {Subsections}
-                    {/* {newTheme} */}
                </div>)
     }
     
 }
+
+
+const SearchContainer = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    align-self:center;
+   
+    background-image:     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${SearchBackground});
+    background-position: center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    height:30vh;
+`
+
+const SearchContents = styled.div`
+    display:flex;
+    flex-direction: column;
+    margin: 10vw 0;
+    justify-content:center;
+    align-items:center;
+
+`
+
+const DropdownWrapper = styled.div`
+    display:inline-flex;
+    justify-content:center;
+    align-self:center;
+    width:20vw;
+`
+const SearchInput = styled.input`
+    width: 15vw;
+    height: 30px;
+    border-style: none;
+    box-shadow: none;
+    border-radius: 2px;
+`
+
+const SearchButton = styled.button`
+    display: inline-flex;
+    justify-content:center;
+    align-items:center;
+    margin: 30px 0;
+    width:10vw;
+    height:50px;
+    border-style: none;
+    box-shadow: none;
+    border-radius: 5px;
+    background: #C60000;
+`
+
+const SearchLabel = styled.span`
+    font-size:26px;
+    font-weight:bold;
+    color:#FFF
+`
+
+const SearchIcon = styled.img`
+    padding:10px;
+    height:20px;
+`
+
 export default withTheme(Home);
