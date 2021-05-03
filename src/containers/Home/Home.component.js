@@ -5,6 +5,7 @@ import {apiCall} from '../../mealAPI.js';
 import DropdownSearch from '../../components/DropdownSelection/DropdownSelection.component';
 import Subsection from '../Subsection/Subsection.container';
 import MealTags from '../../assets/data/MealDBid-tag.json';
+import {withTheme} from 'styled-components';
 
 const options = ['Category','Ingredients','Name','Area'];
   
@@ -137,17 +138,11 @@ class Home extends React.Component{
         return filterRecipesByCat;
     }
 
-    getTheme = (props) =>{
-        // console.log('Props', props.theme);
-        return <span>{props.theme.palette.type}</span>;
-    }
-
     render(){
 
         let Subsections = (<div>Your meal will be with you shortly.</div>);
         let currCategory = null;
 
-        // console.log('THEME', newTheme);
         //Map the query data from the Api once it has loaded and save it into Meals
         //Display a there are no meals message when API returns null value
         if (this.state.error) Subsections = (<div>Error: {this.state.error.message} </div>);
@@ -171,12 +166,14 @@ class Home extends React.Component{
             
         };
         return (<div ref={this.wrapper}>
-                    <DropdownSearch items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
-                    <input type='text' onChange={(event) => this.handleChange(event)}/>
-                    <div className='SearchIconContainer'> 
-                        <button value='Enter' onClick = {(event) => this.handleClick(event)}>
-                            <img src={searchIcon} alt='search logo'/> 
-                        </button>
+                    <div>
+                        <DropdownSearch items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
+                        <input type='text' onChange={(event) => this.handleChange(event)}/>
+                        <div className='SearchIconContainer'> 
+                            <button value='Enter' onClick = {(event) => this.handleClick(event)}>
+                                <img src={searchIcon} alt='search logo'/> 
+                            </button>
+                        </div>
                     </div>
                     {Subsections}
                     {/* {newTheme} */}
@@ -184,4 +181,4 @@ class Home extends React.Component{
     }
     
 }
-export default Home;
+export default withTheme(Home);

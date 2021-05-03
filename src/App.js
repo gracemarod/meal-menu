@@ -15,7 +15,6 @@ const App = () => {
   // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const themeToggler = (newTheme) => {
-    console.log('new theme', theme);
     newTheme === 'Dark' ?  setTheme('light') : setTheme('dark');
   }
 
@@ -26,7 +25,6 @@ const App = () => {
         <Router onClick={(newTheme)=>themeToggler(newTheme)}/>
       </BrowserRouter>
     </ThemeProvider>
-
 
   );
 }
