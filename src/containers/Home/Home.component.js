@@ -55,7 +55,8 @@ class Home extends React.Component{
     }
 
     async componentDidUpdate(prevProps, prevState) {    
-        // console.log( 'Current endpoint', this.state.endpoint, 'Prev', prevState.endpoint);
+        console.log( 'Current endpoint', this.state.endpoint, 'Prev', prevState.endpoint);
+        console.log('Error', this.state.error)
         if(this.state.enterClicked && (this.state.endpoint !== prevState.endpoint)){
             try {
                 const myResp = await apiCall(this.state.endpoint);
@@ -68,10 +69,11 @@ class Home extends React.Component{
                     mealCatMap:catMap,
                     filteredRecipes:filteredRecipes
                 });
-                if (myResp === null) this.setState({error:null}); 
-                
+
+                if (myResp === null) this.setState({error:null});
+                else if(this.state.error !== undefined) this.setState({error:undefined})
             } catch(error) {
-                this.setState({error:error, menuItems:null});
+                this.setState({error:error, menuItems:null,endpoint:null});
             }
         }
         
@@ -205,14 +207,6 @@ const SearchContents = styled.div`
     justify-content:center;
     align-items:center;
 `
-
-const DropdownWrapper = styled.div`
-    display:inline-flex;
-    justify-content:center;
-    align-self:center;
-    width:20vw;
-`
-
 const SearchInput = styled.input`
     width: 30vw;
     height: 30px;
@@ -232,7 +226,13 @@ const SearchButton = styled.button`
     border-style: none;
     box-shadow: none;
     border-radius: 5px;
-    background: #C60000;
+    background-color: #C60000;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    &:hover{
+        background: #c64545;
+        transform: scale(1.2) ;
+    }
 `
 
 const SearchLabel = styled.span`
