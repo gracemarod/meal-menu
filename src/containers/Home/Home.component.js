@@ -6,8 +6,8 @@ import {apiCall} from '../../mealAPI.js';
 import DropdownSearch from '../../components/DropdownSelection/DropdownSelection.component';
 import Subsection from '../Subsection/Subsection.container';
 import MealTags from '../../assets/data/MealDBid-tag.json';
-import {withTheme} from 'styled-components';
-import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
+import styled, {withTheme} from 'styled-components';
 
 const options = ['Category','Ingredients','Name','Area'];
   
@@ -23,11 +23,10 @@ class Home extends React.Component{
         super(props);
         this.state = {
             option:'Category',
-            link:'',
+            endpoint:'',
             isLoaded:null,
             menuItems:[],
             input:null,
-            mealId:null,
             mealCatMap:null,
             filteredRecipes:null
         }
@@ -57,10 +56,11 @@ class Home extends React.Component{
         }
     }
 
-    async componentDidUpdate(prevState) {    
-        if(this.state.enterClicked && (this.state.link !== prevState.link)){
+    async componentDidUpdate(prevProps, prevState) {    
+        // console.log( 'Current endpoint', this.state.endpoint, 'Prev', prevState.endpoint);
+        if(this.state.enterClicked && (this.state.endpoint !== prevState.endpoint)){
             try {
-                const myResp = await apiCall(this.state.link);
+                const myResp = await apiCall(this.state.endpoint);
                 let catMap = await this.jsonToDict(MealTags);
                 let filteredRecipes = await this.getFilteredRecipes(myResp.meals,catMap);
                 this.setState({
@@ -73,7 +73,7 @@ class Home extends React.Component{
                 if (myResp === null) this.setState({error:null}); 
                 
             } catch(error) {
-                this.setState({error:error});
+                this.setState({error:error, menuItems:null});
             }
         }
         
@@ -90,11 +90,12 @@ class Home extends React.Component{
     // Update new input and fetch new data
     handleChange = (event) => {
         this.setState({input:event.target.value});
+        event.preventDefault();
     }
-    //set new link state once the user presses enter 
+    //set new endpoint state once the user presses enter 
     handleClick = (event) => {
-        let newLink = searchOptions[this.state.option] + this.state.input;
-        this.setState({enterClicked:true, link:newLink});
+        let newendpoint = searchOptions[this.state.option] + this.state.input;
+        this.setState({enterClicked:true, endpoint:newendpoint});
         event.preventDefault();
     }
 
@@ -147,8 +148,9 @@ class Home extends React.Component{
 
         //Map the query data from the Api once it has loaded and save it into Meals
         //Display a there are no meals message when API returns null value
-        if (this.state.error) Subsections = (<div>There seems to be an error. </div>);
-        else if (this.state.menuItems === null) return <div>Sorry, there are no meals with this result.</div>;
+
+        if (this.state.menuItems === null  || this.state.error === null) Subsections = <div>Sorry, there are no meals with this search.</div>;
+        else if (this.state.error) Subsections = (<div>There seems to be an error. </div>);
         else if(this.state.isLoaded === true) {
             Subsections = <div>
                             {categories.map((cat,inx) => {
@@ -175,9 +177,8 @@ class Home extends React.Component{
                                 <SearchLabel>Search</SearchLabel>
                                 {/* <SearchIcon src={searchIcon} alt='search logo'/>  */}
                             </SearchButton>
-                            <DropdownWrapper>
-                                <DropdownSearch items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
-                            </DropdownWrapper>
+                                <DropdownSearch classes={categoryDropdownStyle} items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
+    
                         </SearchContents>
                     </SearchContainer>
                     {Subsections}
@@ -196,6 +197,7 @@ const SearchContainer = styled.div`
     background-size: 100% auto;
     background-repeat: no-repeat;
     height:30vh;
+    margin: 60px 0;
 `
 
 const SearchContents = styled.div`
@@ -212,12 +214,14 @@ const DropdownWrapper = styled.div`
     align-self:center;
     width:20vw;
 `
+
 const SearchInput = styled.input`
-    width: 15vw;
+    width: 30vw;
     height: 30px;
     border-style: none;
     box-shadow: none;
     border-radius: 2px;
+    padding: 5px;
 `
 
 const SearchButton = styled.button`
@@ -225,7 +229,7 @@ const SearchButton = styled.button`
     justify-content:center;
     align-items:center;
     margin: 30px 0;
-    width:10vw;
+    width:15vw;
     height:50px;
     border-style: none;
     box-shadow: none;
@@ -239,9 +243,24 @@ const SearchLabel = styled.span`
     color:#FFF
 `
 
+
 const SearchIcon = styled.img`
     padding:10px;
     height:20px;
+`
+const categoryDropdownStyle = {
+    root: {
+      background: '#8e8e8e',
+      borderRadius:'5px',
+      width:'120px',
+      height:'50px',
+      display:'flex',
+      justifyContent:'center'
+    }};
+
+
+const testWrapper = styled.div`
+    background-color:red;
 `
 
 export default withTheme(Home);

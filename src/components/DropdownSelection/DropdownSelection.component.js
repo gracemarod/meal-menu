@@ -1,9 +1,5 @@
 import React from 'react';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText  from '@material-ui/core/ListItemText';
+import {Menu, MenuItem, List, ListItem, ListItemText, makeStyles, withTheme} from '@material-ui/core';
 import { useState } from 'react';
 
 import styled from 'styled-components';
@@ -26,18 +22,27 @@ export default function SimpleListMenu(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  let newStyles = makeStyles(props.classes)
+  let classes = newStyles();
+
+  let ListItemClasses = ListItemTextStyle();
 
   return (
-    <Dropdown>
-      <List component="nav" aria-label="Dropdown">
+    <div >
+      <List classes={{root:classes.root}} component="nav" aria-label="Dropdown">
         <ListItem
           button
           aria-haspopup="true"
           aria-controls="lock-menu"
-          aria-label="search by"
+          aria-label={props.title}
           onClick={handleClickListItem}
         >
-          <ListItemText primary={props.title} secondary={props.items[selectedIndex]} />
+          <ListItemText 
+            classes={{root:ListItemClasses.root,
+                      secondary:ListItemClasses.secondary
+            }} 
+            primary={props.title} 
+            secondary={props.items[selectedIndex]} />
         </ListItem>
       </List>
       <Menu
@@ -59,10 +64,11 @@ export default function SimpleListMenu(props) {
           )})
         }
       </Menu>
-    </Dropdown>
+    </div>
   );
 }
 
-const Dropdown = styled.div`
-
-`
+const ListItemTextStyle = makeStyles({
+ secondary:{
+    color:'white'
+  }});

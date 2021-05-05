@@ -43,7 +43,7 @@ const Nav = styled.nav`
 `;
 
 const HeaderDark = styled.header`
-    background:#555555;
+    background:#000;
 `;
 
 const HeaderLight = styled.header`
