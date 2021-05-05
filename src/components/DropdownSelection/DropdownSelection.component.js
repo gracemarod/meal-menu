@@ -1,8 +1,6 @@
 import React from 'react';
-import {Menu, MenuItem, List, ListItem, ListItemText, makeStyles, withTheme} from '@material-ui/core';
+import {Menu, MenuItem, List, ListItem, ListItemText, makeStyles} from '@material-ui/core';
 import { useState } from 'react';
-
-import styled from 'styled-components';
 
 export default function SimpleListMenu(props) {
 

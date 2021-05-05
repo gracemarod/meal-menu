@@ -1,8 +1,45 @@
 import React from 'react';
 import MealBox from '../../components/MealBox/MealBox.component';
+import styled, {withTheme} from 'styled-components';
+import ChalkBackground from '../../assets/images/chalk-background-vertical.jpg';
 
 const Subsection = (props) => { 
-    let MealsList =  <div className='MealsContainer'>
+    let subtitleTextColor = (props.theme.main === 'dark') ? '#1B5100' : '#CE834A';
+    let subtitleBackground = (props.theme.main === 'dark') ? `background-image:linear-gradient(rgba(54, 53, 55, 0.5), rgba(54, 53, 55, 0.5)), url(${ChalkBackground})`:`background-color:#FFF`;
+
+    const SubtitleContainter = styled.div`
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+    `
+
+    const SubtitleText = styled.h1`
+        background-color:${subtitleTextColor};
+        width: 10em;
+        height: 70px;
+        display:flex;
+        justify-content:center;
+        text-align:center; 
+        align-items:center;
+        border-radius: 5px;
+        color:white;
+    `
+
+    const MealsContainer = styled.div`
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        background-color:black;
+        ${subtitleBackground};
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 80vw;
+        padding: 5em 0;
+        margin-bottom:50px;
+    `
+
+    let MealsList =  <MealsContainer>
         {props.items.map((meal) => {
             return (
                 <MealBox
@@ -12,14 +49,17 @@ const Subsection = (props) => {
                     clicked={() => props.clicked(meal.idMeal)}
                 />
         )})}
-    </div>;
+    </MealsContainer>;
+
+ 
 
     return(
-        <div>
-            <h1>{props.subtitle}</h1>
-            <div>{MealsList}</div>
-        </div>
+        <SubtitleContainter>
+            <SubtitleText>{props.subtitle}</SubtitleText>
+            {MealsList}
+        </SubtitleContainter>
     )
 }
 
-export default Subsection;
+export default withTheme(Subsection);
+

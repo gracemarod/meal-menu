@@ -1,12 +1,10 @@
 import React from 'react';
-import './Home.css';
 import searchIcon from '../../assets/images/search.png';
 import SearchBackground from '../../assets/images/cutting-board.jpg';
 import {apiCall} from '../../mealAPI.js';
 import DropdownSearch from '../../components/DropdownSelection/DropdownSelection.component';
 import Subsection from '../Subsection/Subsection.container';
 import MealTags from '../../assets/data/MealDBid-tag.json';
-import { makeStyles } from '@material-ui/core/styles';
 import styled, {withTheme} from 'styled-components';
 
 const options = ['Category','Ingredients','Name','Area'];
@@ -185,19 +183,19 @@ class Home extends React.Component{
                </div>)
     }
 }
+export default withTheme(Home);
 
 const SearchContainer = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
     align-self:center;
-   
-    background-image:     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${SearchBackground});
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${SearchBackground});
     background-position: center;
     background-size: 100% auto;
     background-repeat: no-repeat;
     height:30vh;
-    margin: 60px 0;
+    margin-bottom: 10em;
 `
 
 const SearchContents = styled.div`
@@ -220,7 +218,7 @@ const SearchInput = styled.input`
     height: 30px;
     border-style: none;
     box-shadow: none;
-    border-radius: 2px;
+    border-radius: 5px;
     padding: 5px;
 `
 
@@ -243,7 +241,6 @@ const SearchLabel = styled.span`
     color:#FFF
 `
 
-
 const SearchIcon = styled.img`
     padding:10px;
     height:20px;
@@ -263,4 +260,3 @@ const testWrapper = styled.div`
     background-color:red;
 `
 
-export default withTheme(Home);

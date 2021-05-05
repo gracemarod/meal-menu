@@ -43,11 +43,11 @@ const Nav = styled.nav`
 `;
 
 const HeaderDark = styled.header`
-    background:#000;
+    background:#1B5100;
 `;
 
 const HeaderLight = styled.header`
-    background:#FFF;
+    background:#CE834A;
 `;
 
 const Dropdown = styled.div`
