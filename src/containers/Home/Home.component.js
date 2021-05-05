@@ -195,7 +195,7 @@ const SearchContainer = styled.div`
     background-size: 100% auto;
     background-repeat: no-repeat;
     height:30vh;
-    margin-bottom: 10em;
+    margin-bottom: 5em;
 `
 
 const SearchContents = styled.div`

@@ -1,12 +1,37 @@
 import React from 'react';
 import './MealBox.css';
+import styled, {withTheme} from 'styled-components';
 
 const MealBox = (props) => {
     return(
-        <div className='MealContainer' onClick={props.clicked}>
-            <img src={props.image} alt="Meal" />
-            <div>{props.name}</div>
-        </div>
+        <MealContainer onClick={props.clicked}>
+            <MealContainerImg src={props.image} alt="Meal" />
+            <MealName>{props.name}</MealName>
+        </MealContainer>
     )
 }
 export default MealBox;
+
+const MealContainer = styled.div`
+    flex: 1;
+    margin: 20px;
+    align-items: left;
+    justify-content: space-evenly;
+    text-align: center;
+    cursor: pointer;
+    &:hover{
+        transition: all .2s ease-in-out;
+        transform: scale(1.2);
+    }
+`
+
+const MealContainerImg = styled.img`
+    height:20vh;
+
+`
+
+const MealName = styled.h4`
+    font-weight:normal;
+    font-size: 1.5em;
+
+`

@@ -6,7 +6,7 @@ import ChalkBackground from '../../assets/images/chalk-background-vertical.jpg';
 const Subsection = (props) => { 
     let subtitleTextColor = (props.theme.main === 'dark') ? '#1B5100' : '#CE834A';
     let subtitleBackground = (props.theme.main === 'dark') ? `background-image:linear-gradient(rgba(54, 53, 55, 0.5), rgba(54, 53, 55, 0.5)), url(${ChalkBackground})`:`background-color:#FFF`;
-
+    let borderStyle = (props.theme.main === 'dark') ? 'solid' : 'double';
     const SubtitleContainter = styled.div`
         display:flex;
         flex-direction:column;
@@ -37,6 +37,7 @@ const Subsection = (props) => {
         width: 80vw;
         padding: 5em 0;
         margin-bottom:50px;
+        border: 10px ${borderStyle} black;
     `
 
     let MealsList =  <MealsContainer>
