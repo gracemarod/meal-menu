@@ -55,8 +55,7 @@ class Home extends React.Component{
     }
 
     async componentDidUpdate(prevProps, prevState) {    
-        console.log( 'Current endpoint', this.state.endpoint, 'Prev', prevState.endpoint);
-        console.log('Error', this.state.error)
+        // console.log( 'Current endpoint', this.state.endpoint, 'Prev', prevState.endpoint);
         if(this.state.enterClicked && (this.state.endpoint !== prevState.endpoint)){
             try {
                 const myResp = await apiCall(this.state.endpoint);
@@ -164,7 +163,7 @@ class Home extends React.Component{
                                             clicked = {this.postSelectedHandler} 
                                         />
                                     )
-                                }
+                                }else return null;
                             })}
                         </div>
             
@@ -245,6 +244,9 @@ const SearchIcon = styled.img`
     padding:10px;
     height:20px;
 `
+
+
+//for material ui dropdown component
 const categoryDropdownStyle = {
     root: {
       background: '#8e8e8e',
@@ -253,10 +255,6 @@ const categoryDropdownStyle = {
       height:'50px',
       display:'flex',
       justifyContent:'center'
-    }};
+}};
 
-
-const testWrapper = styled.div`
-    background-color:red;
-`
 

@@ -1,20 +1,21 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Route, NavLink, Switch} from 'react-router-dom';
 import Home from '../Home/Home.component'; 
 import Recipe from '../../components/Recipe/Recipe.Component';
 import DropdownSelection from '../../components/DropdownSelection/DropdownSelection.component';
-import styled, {withTheme} from 'styled-components';
+import styled from 'styled-components';
 
 
 const themes = ['Dark', 'Light'];
 
 const Router = (props) => {
-    
+    const [theme, setTheme] = useState(props.theme);
+
     const setOption = (type)=> {
+        setTheme(type);
         props.onClick(type);
     }
-    console.log('Props in Router', props.theme.main);
-    let Header = (props.theme.main === 'dark') ? HeaderDark : HeaderLight;
+    let Header = (theme === 'dark') ? HeaderLight :HeaderDark ;
     return (
         <div className='Router'>
             <Header>
@@ -26,7 +27,7 @@ const Router = (props) => {
                     </ul>
                 </Nav>
                 <Dropdown>
-                    <DropdownSelection items={themes} onClick={(type)=>setOption(type)} title={'Select Theme'} />
+                    <DropdownSelection classes={themeDropdownStyle} items={themes} onClick={(type)=>setOption(type)} title={'Select Theme'} />
                 </Dropdown>
             </Header>
             <Route path='/' exact component={Home}/>
@@ -36,6 +37,8 @@ const Router = (props) => {
         </div>)
 
 }
+
+export default Router;
 
 const Nav = styled.nav`
     display:flex;
@@ -56,4 +59,7 @@ const Dropdown = styled.div`
     max-width:20vw;
 `;
 
-export default withTheme(Router);
+const themeDropdownStyle = {
+    root: {}
+
+}

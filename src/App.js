@@ -1,4 +1,4 @@
-import React,{useState,} from 'react';
+import React,{useState} from 'react';
 import './App.css';
 import Router from './containers/Router/Router.component';
 import {BrowserRouter} from 'react-router-dom';
@@ -15,6 +15,7 @@ const App = () => {
   // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const themeToggler = (newTheme) => {
+    console.log('This theme is', newTheme);
     newTheme === 'Dark' ?  setTheme('light') : setTheme('dark');
   }
 
@@ -22,7 +23,7 @@ const App = () => {
     <ThemeProvider theme={theme === 'dark' ? lightTheme: darkTheme}>
       <GlobalStyles/>
       <BrowserRouter>
-        <Router onClick={(newTheme)=>themeToggler(newTheme)}/>
+        <Router theme={theme} onClick={(newTheme)=>themeToggler(newTheme)}/>
       </BrowserRouter>
     </ThemeProvider>
 

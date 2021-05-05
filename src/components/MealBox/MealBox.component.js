@@ -1,6 +1,5 @@
 import React from 'react';
-import './MealBox.css';
-import styled, {withTheme} from 'styled-components';
+import styled from 'styled-components';
 
 const MealBox = (props) => {
     return(
@@ -27,7 +26,6 @@ const MealContainer = styled.div`
 
 const MealContainerImg = styled.img`
     height:20vh;
-
 `
 
 const MealName = styled.h4`
