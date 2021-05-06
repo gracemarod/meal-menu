@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import { Route, NavLink, Switch} from 'react-router-dom';
 import Home from '../Home/Home.component'; 
-import Recipe from '../../components/Recipe/Recipe.Component';
+import Recipe from '../../components/Recipe/Recipe.component';
 import DropdownSelection from '../../components/DropdownSelection/DropdownSelection.component';
 import styled from 'styled-components';
 
@@ -68,19 +68,10 @@ const RouterStyle = styled.div`
         text-decoration: none;
         font-size:24px;
     },
-    a:hover, &a::active{
-
-    },
     a:visited{
         color:inherit;
     }
 `
-const HeaderLi = styled.li`
-    color:white;
-    margin: 20px;
-    align-self:center;
-`
-
 const HeaderUl = styled.ul`
     display:flex;
     list-style: none;
@@ -89,3 +80,9 @@ const HeaderUl = styled.ul`
     width: 100%;
     color: ${({ theme }) => theme.text};
 `
+const HeaderLi = styled.li`
+    color:white;
+    margin: 20px;
+    align-self:center;
+`
+

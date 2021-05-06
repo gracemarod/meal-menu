@@ -245,7 +245,6 @@ const SearchIcon = styled.img`
     height:20px;
 `
 
-
 //for material ui dropdown component
 const categoryDropdownStyle = {
     root: {
