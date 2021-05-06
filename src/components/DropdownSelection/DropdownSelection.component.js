@@ -12,7 +12,6 @@ export default function SimpleListMenu(props) {
   };
 
   const handleMenuItemClick = (option, index) => {
-    console.log('On dropdown', option, index);
     setSelectedIndex(index);
     setAnchorEl(null);
     props.onClick(option);
@@ -26,7 +25,6 @@ export default function SimpleListMenu(props) {
   let classes = newStyles();
 
   let ListItemClasses = ListItemTextStyle();
-  console.log('Current selection:', props.items[selectedIndex], selectedIndex);
   return (
     <div >
       <List classes={{root:classes.root}} component="nav" aria-label="Dropdown">
@@ -69,6 +67,7 @@ export default function SimpleListMenu(props) {
 }
 
 const ListItemTextStyle = makeStyles({
+ root:{color:'white'}, 
  secondary:{
     color:'white'
   }});

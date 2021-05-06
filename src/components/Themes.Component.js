@@ -8,7 +8,7 @@ export const lightTheme = {
     backgroundColor: '#363537',
     subsectionTextBackgroundColor: '#CE834A',
     subsectionBackground: 'linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255))',
-    subsectionBorder: '10px double green'
+    subsectionBorder: '10px double black'
 };
 export const darkTheme = {    
     main:'dark',

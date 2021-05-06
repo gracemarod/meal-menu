@@ -15,7 +15,6 @@ const App = () => {
   // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const themeToggler = (newTheme) => {
-    console.log('This theme is', newTheme);
     newTheme === 'Dark' ?  setTheme('light') : setTheme('dark');
   }
 

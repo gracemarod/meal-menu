@@ -15,16 +15,16 @@ const Router = (props) => {
         setTheme(type);
         props.onClick(type);
     }
-    let Header = (theme === 'dark') ? HeaderLight :HeaderDark ;
+    let Header = (theme === 'Dark') ?  HeaderDark : HeaderLight ;
     return (
-        <div className='Router'>
+        <RouterStyle>
             <Header>
                 <Nav>
-                    <ul>
-                        <li>
+                    <HeaderUl>
+                        <HeaderLi>
                             <NavLink to='/' exact>Home</NavLink>
-                        </li>
-                    </ul>
+                        </HeaderLi>
+                    </HeaderUl>
                 </Nav>
                 <Dropdown>
                     <DropdownSelection classes={themeDropdownStyle} items={themes} onClick={(type)=>setOption(type)} title={'Select Theme'} />
@@ -34,7 +34,7 @@ const Router = (props) => {
             <Switch>
                 <Route path='/:id' exact component={Recipe}/>
             </Switch>
-        </div>)
+        </RouterStyle>)
 
 }
 
@@ -61,5 +61,31 @@ const Dropdown = styled.div`
 
 const themeDropdownStyle = {
     root: {}
-
 }
+
+const RouterStyle = styled.div`
+    a{
+        text-decoration: none;
+        font-size:24px;
+    },
+    a:hover, &a::active{
+
+    },
+    a:visited{
+        color:inherit;
+    }
+`
+const HeaderLi = styled.li`
+    color:white;
+    margin: 20px;
+    align-self:center;
+`
+
+const HeaderUl = styled.ul`
+    display:flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    color: ${({ theme }) => theme.text};
+`
