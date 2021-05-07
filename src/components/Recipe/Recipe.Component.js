@@ -119,8 +119,7 @@ export default Recipe;
 const RecipeContainer = styled.div`
     display:flex;
     justify-content:center;
-    margin: 5vh;
-
+    margin: 5em 5em;
 `
 const RecipeContents = styled.div`
     display:flex;
@@ -145,6 +144,10 @@ const ImgIngredientsSection = styled.div`
     display:flex;
     justify-content: space-between;
     width: 65vw;
+    @media (max-width: 425px){
+        flex-direction:column;
+        width: 100vw;
+    }
 `
 
 const IngsContainer = styled.div`
@@ -155,10 +158,14 @@ const IngsContainer = styled.div`
     width:20em;
     border: ${({ theme }) => theme.subsectionBorder};
     background-image: ${({ theme }) => theme.subsectionBackground};
+    @media (max-width: 425px){
+        width:90vw;
+        border-left:none;
+        border-right:none;
+    }
 `
 
 const IngsUl = styled.ul`
-    // display:flex;
     list-style: none;
     margin: 10px;
     padding: 0;
@@ -174,15 +181,21 @@ const Image = styled.img`
     min-height:40vh;
     flex-wrap: wrap;
     height:${props => props.height};
+    @media (max-width: 425px){
+        height:${props => props.height}+15px;
+    }
 
 `
 const InstContainer = styled.div`
-    margin: 60px 0;
+    margin: 60px 2em;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     width: 70vw;
+    @media (max-width: 425px){
+        width: 95vw;
+    }
 `
 
 const InstOl = styled.ol`

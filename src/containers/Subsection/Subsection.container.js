@@ -54,6 +54,8 @@ const MealsContainer = styled.div`
         background-attachment: fixed;
         width: 100vw;
         flex-direction:column;
+        border-left:none;
+        border-right:none;
     }
 `
 
