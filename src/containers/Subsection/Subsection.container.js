@@ -31,28 +31,31 @@ const SubsectioneContainter = styled.div`
     justify-content:center;
     align-items:center;
     align-content:center;
+ 
 `
 
 const MealsContainer = styled.div`
-        display: flex;
-        justify-content: space-between;
-        align-items:center;
-        align-content:center;
-        flex-wrap: wrap;
-        background-image: ${({ theme }) => theme.subsectionBackground};
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-        width: 80vw;
-        padding: 2em 0;
-        margin-bottom:60px;
-        border: ${({ theme }) => theme.subsectionBorder};
-        
-        @media (max-width: 425px){
-            background-image: ${({ theme }) => theme.smallChalkBackground};
-            background-attachment: fixed;
-        }
-    `
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    align-content:center;
+    flex-wrap: wrap;
+    background-image: ${({ theme }) => theme.subsectionBackground};
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 80vw;
+    padding: 2em 0;
+    margin-bottom:60px;
+    border: ${({ theme }) => theme.subsectionBorder};
+    
+    @media (max-width: 425px){
+        background-image: ${({ theme }) => theme.smallChalkBackground};
+        background-attachment: fixed;
+        width: 100vw;
+        flex-direction:column;
+    }
+`
 
 const SubtitleText = styled.h1`
         width: 10em;

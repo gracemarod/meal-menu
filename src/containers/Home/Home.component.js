@@ -27,7 +27,8 @@ class Home extends React.Component{
             menuItems:[],
             input:null,
             mealCatMap:null,
-            filteredRecipes:null
+            filteredRecipes:null,
+            screenWidth:null
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -41,11 +42,13 @@ class Home extends React.Component{
             const myResp = await apiCall('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood');
             let catMap = await this.jsonToDict(MealTags);
             let filteredRecipes = await this.getFilteredRecipes(myResp.meals,catMap);
+            const width = await window.innerWidth;
             this.setState({
                 isLoaded:true,
                 menuItems:myResp.meals,
                 mealCatMap:catMap,
-                filteredRecipes:filteredRecipes
+                filteredRecipes:filteredRecipes,
+                screenWidth: width
             });
 
             if (myResp === null) this.setState({error:null}); 
@@ -145,9 +148,11 @@ class Home extends React.Component{
 
         let Subsections = (<div>Your meal will be with you shortly.</div>);
         let currCategory = null;
-
+        // let dropdownStyle = (mobileScreen)? categoryDropdownStyleLarge : categoryDropdownStyleSmall;
         //Map the query data from the Api once it has loaded and save it into Meals
         //Display a there are no meals message when API returns null value
+        let DropdownStyle = categoryDropdownStyleLarge;
+        if(this.state.screenWidth!== null) DropdownStyle = (this.state.screenWidth <= 425) ? categoryDropdownStyleSmall : categoryDropdownStyleLarge;
 
         if (this.state.menuItems === null  || this.state.error === null) Subsections = <div>Sorry, there are no meals with this search.</div>;
         else if (this.state.error) Subsections = (<div>There seems to be an error. </div>);
@@ -177,7 +182,7 @@ class Home extends React.Component{
                                 <SearchLabel>Search</SearchLabel>
                                 {/* <SearchIcon src={searchIcon} alt='search logo'/>  */}
                             </SearchButton>
-                                <DropdownSearch classes={categoryDropdownStyle} items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
+                                <DropdownSearch classes={DropdownStyle} items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
                         </SearchContents>
                     </SearchContainer>
                     {Subsections}
@@ -242,10 +247,9 @@ const SearchButton = styled.button`
         transform: scale(1.2) ;
     }
     @media (max-width: 425px){
-         width:100%;
-         padding: 0.5em 5em;
+         width:95vw;
          display:block;
-         margin:2em auto;
+         margin:2em 0.5em;
     }
 `
 
@@ -258,10 +262,11 @@ const SearchLabel = styled.span`
 const SearchIcon = styled.img`
     padding:10px;
     height:20px;
+  
 `
 
 //for material ui dropdown component
-const categoryDropdownStyle = {
+const categoryDropdownStyleLarge = {
     root: {
       background: '#8e8e8e',
       borderRadius:'5px',
@@ -271,4 +276,14 @@ const categoryDropdownStyle = {
       justifyContent:'center'
 }};
 
-
+const categoryDropdownStyleSmall = {
+    root: {
+      background: '#8e8e8e',
+      borderRadius:'5px',
+      width:'95vw',
+      height:'50px',
+      display:'flex',
+      justifyContent:'center',
+      margin:'0 0.5em',
+      textAlign:'center',
+}};
