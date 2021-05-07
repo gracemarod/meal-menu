@@ -26,9 +26,8 @@ const Router = (props) => {
                         </HeaderLi>
                     </HeaderUl>
                 </Nav>
-                <Dropdown>
-                    <DropdownSelection classes={themeDropdownStyle} items={themes} onClick={(type)=>setOption(type)} title={'Select Theme'} />
-                </Dropdown>
+                <DropdownSelection classes={themeDropdownStyle} items={themes} onClick={(type)=>setOption(type)} title={'Select Theme'} />
+
             </Header>
             <Route path='/' exact component={Home}/>
             <Switch>
@@ -53,14 +52,14 @@ const HeaderLight = styled.header`
     background:#CE834A;
 `;
 
-const Dropdown = styled.div`
-    justify-content: flex-end;
-    flex-grow: 0;
-    max-width:20vw;
-`;
 
 const themeDropdownStyle = {
-    root: {}
+    root: {
+        display:'flex',
+        justifyContent: 'flex-end',
+        flexGrow: 0,
+        textAlign:'left',
+    }
 }
 
 const RouterStyle = styled.div`

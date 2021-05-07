@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const MealBox = (props) => {
     return(
         <MealContainer onClick={props.clicked}>
-            <MealContainerImg src={props.image} alt="Meal" />
+            <MealContainerImg src={props.image} alt={props.name} />
             <MealName>{props.name}</MealName>
         </MealContainer>
     )

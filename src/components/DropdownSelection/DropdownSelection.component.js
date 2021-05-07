@@ -1,6 +1,7 @@
 import React from 'react';
 import {Menu, MenuItem, List, ListItem, ListItemText, makeStyles} from '@material-ui/core';
 import { useState } from 'react';
+import styled from 'styled-components';
 
 export default function SimpleListMenu(props) {
 
@@ -26,7 +27,7 @@ export default function SimpleListMenu(props) {
 
   let ListItemClasses = ListItemTextStyle();
   return (
-    <div >
+    <Dropdown >
       <List classes={{root:classes.root}} component="nav" aria-label="Dropdown">
         <ListItem
           button
@@ -62,7 +63,7 @@ export default function SimpleListMenu(props) {
           )})
         }
       </Menu>
-    </div>
+    </Dropdown>
   );
 }
 
@@ -71,3 +72,8 @@ const ListItemTextStyle = makeStyles({
  secondary:{
     color:'white'
   }});
+
+
+  const Dropdown = styled.div`
+    // width:100%;
+`;

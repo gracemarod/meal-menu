@@ -5,16 +5,16 @@ import styled, {withTheme} from 'styled-components';
 const Subsection = (props) => { 
 
     let MealsList =  <MealsContainer>
-        {props.items.map((meal) => {
-            return (
-                <MealBox
-                    key = {meal.idMeal}
-                    image = {meal.strMealThumb}
-                    name = {meal.strMeal}
-                    clicked={() => props.clicked(meal.idMeal)}
-                />
-        )})}
-    </MealsContainer>;
+            {props.items.map((meal) => {
+                return (
+                    <MealBox
+                        key = {meal.idMeal}
+                        image = {meal.strMealThumb}
+                        name = {meal.strMeal}
+                        clicked={() => props.clicked(meal.idMeal)}
+                    />
+            )})}
+        </MealsContainer>;
     return(
         <SubsectioneContainter>
             <SubtitleText>{props.subtitle}</SubtitleText>
@@ -42,10 +42,16 @@ const MealsContainer = styled.div`
         background-image: ${({ theme }) => theme.subsectionBackground};
         background-size: cover;
         background-repeat: no-repeat;
+        background-position: center center;
         width: 80vw;
         padding: 2em 0;
         margin-bottom:60px;
         border: ${({ theme }) => theme.subsectionBorder};
+        
+        @media (max-width: 425px){
+            background-image: ${({ theme }) => theme.smallChalkBackground};
+            background-attachment: fixed;
+        }
     `
 
 const SubtitleText = styled.h1`
@@ -58,5 +64,4 @@ const SubtitleText = styled.h1`
         background-color: ${({ theme }) => theme.subsectionTextBackgroundColor};
         border-radius: 5px;
         color:white;
-       
 `

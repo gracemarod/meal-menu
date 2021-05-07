@@ -1,6 +1,7 @@
 import React from 'react';
 import searchIcon from '../../assets/images/search.png';
 import SearchBackground from '../../assets/images/cutting-board.jpg';
+import SearchBackgroundSmall from '../../assets/images/cutting-board-500w.jpg';
 import {apiCall} from '../../mealAPI.js';
 import DropdownSearch from '../../components/DropdownSelection/DropdownSelection.component';
 import Subsection from '../Subsection/Subsection.container';
@@ -177,7 +178,6 @@ class Home extends React.Component{
                                 {/* <SearchIcon src={searchIcon} alt='search logo'/>  */}
                             </SearchButton>
                                 <DropdownSearch classes={categoryDropdownStyle} items={options} onClick={(type)=>this.setOption(type)} title={'Search By'}/>
-    
                         </SearchContents>
                     </SearchContainer>
                     {Subsections}
@@ -192,36 +192,45 @@ const SearchContainer = styled.div`
     align-items:center;
     align-self:center;
     background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${SearchBackground});
-    background-position: center;
-    background-size: 100% auto;
+    background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
     height:30vh;
     margin-bottom: 5em;
+    @media (max-width: 425px){
+        background-image:linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${SearchBackgroundSmall});
+        height:40vh;
+        margin-bottom: 1em;
+    }
 `
 
 const SearchContents = styled.div`
     display:flex;
     flex-direction: column;
-    margin: 10vw 0;
     justify-content:center;
     align-items:center;
 `
 const SearchInput = styled.input`
-    width: 30vw;
-    height: 30px;
+    width: 40vw;
+    padding: 1em 1em;
+    // margin:  1em auto 0;
     border-style: none;
     box-shadow: none;
     border-radius: 5px;
-    padding: 5px;
+    text-align:start;
+    @media (max-width: 425px){
+        width:90vw;
+        height:auto;
+        margin: 0 auto;
+    }
 `
 
 const SearchButton = styled.button`
     display: inline-flex;
     justify-content:center;
     align-items:center;
-    margin: 30px 0;
-    width:15vw;
-    height:50px;
+    padding: 1em 5em;
+    margin: 2em 0.3em;
     border-style: none;
     box-shadow: none;
     border-radius: 5px;
@@ -231,6 +240,12 @@ const SearchButton = styled.button`
     &:hover{
         background: #c64545;
         transform: scale(1.2) ;
+    }
+    @media (max-width: 425px){
+         width:100%;
+         padding: 0.5em 5em;
+         display:block;
+         margin:2em auto;
     }
 `
 
