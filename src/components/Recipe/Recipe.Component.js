@@ -184,7 +184,6 @@ const Image = styled.img`
     @media (max-width: 425px){
         height:${props => props.height}+15px;
     }
-
 `
 const InstContainer = styled.div`
     margin: 60px 2em;
@@ -203,34 +202,33 @@ const InstOl = styled.ol`
 `
 
 //not using this now, while style checkbox eventually
-const IngsLabel = styled.label`
-    display: block;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-`
-const IngsCheckbox = styled.input`
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-    :checked {
-        display: block;
-    }
-`
+// const IngsLabel = styled.label`
+//     display: block;
+//     cursor: pointer;
+//     -webkit-user-select: none;
+//     -moz-user-select: none;
+//     -ms-user-select: none;
+//     user-select: none;
+// `
+// const IngsCheckbox = styled.input`
+//     position: absolute;
+//     opacity: 0;
+//     cursor: pointer;
+//     height: 0;
+//     width: 0;
+//     :checked {
+//         display: block;
+//     }
+// `
 
-const IngsSpan = styled.span`
-    position: absolute;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    :after {
-        content: "";
-        position: absolute;
-        display: none;
-      }
-      
-`
+// const IngsSpan = styled.span`
+//     position: absolute;
+//     height: 25px;
+//     width: 25px;
+//     background-color: #eee;
+//     :after {
+//         content: "";
+//         position: absolute;
+//         display: none;
+//       }
+// `

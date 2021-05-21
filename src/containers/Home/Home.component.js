@@ -1,5 +1,5 @@
 import React from 'react';
-import searchIcon from '../../assets/images/search.png';
+// import searchIcon from '../../assets/images/search.png';
 import SearchBackground from '../../assets/images/cutting-board.jpg';
 import SearchBackgroundSmall from '../../assets/images/cutting-board-500w.jpg';
 import {apiCall} from '../../mealAPI.js';
@@ -259,11 +259,11 @@ const SearchLabel = styled.span`
     color:#FFF
 `
 
-const SearchIcon = styled.img`
-    padding:10px;
-    height:20px;
+// const SearchIcon = styled.img`
+//     padding:10px;
+//     height:20px;
   
-`
+// `
 
 //for material ui dropdown component
 const categoryDropdownStyleLarge = {
