@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import { Route, NavLink, Switch} from 'react-router-dom';
+import { Route, NavLink} from 'react-router-dom';
 import Home from '../Home/Home.component'; 
 import './Router.css';
-import Recipe from '../../components/Recipe/Recipe.Component';
 
 class Router extends Component{
     render(){
