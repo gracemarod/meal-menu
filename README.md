@@ -1,5 +1,12 @@
 ## Meal Menu
-A small little web app to practice ReactJs. Fetches meal data from [https://www.themealdb.com/]("https://www.themealdb.com/") and displays according to input. Input can be based on meal name, meal category, meal locality or ingredients.
+Fetches meal data from [https://www.themealdb.com/]("https://www.themealdb.com/") and displays according to input. Input can be based on meal name, meal category, meal locality or ingredients.
+
+### Containers
+####Router
+Router for home page and eahc Recipe page.
+
+####Home
+Parent Component that fecthes the input query from the mealDB API and sends the data to the child components. Before sending the data, it filters and organizes each recipe element in the mealtags object, which is a map that has cetgeory as key and an array of all the recipes that belong to that category. 
 
 ### Components
 #### Searches
